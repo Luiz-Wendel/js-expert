@@ -10,7 +10,11 @@ const Fibonacci = require("./fibonacci");
     const fibonacci = new Fibonacci();
     const spy = sinon.spy(fibonacci, fibonacci.execute.name);
 
-    fibonacci.execute(EXECUTIONS);
+    // generators return iterators
+    // there is 3 forms to read the data
+    // using the functions: .next, for (await) and rest/spread
+
+    for (const _index of fibonacci.execute(EXECUTIONS)) {};
 
     const expectedCallCount = EXECUTIONS + 1;
 

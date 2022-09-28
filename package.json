@@ -10,11 +10,17 @@
     "type": "git",
     "url": "git+https://github.com/Luiz-Wendel/js-expert.git"
   },
-  "keywords": ["JS", "JavaScript"],
+  "keywords": [
+    "JS",
+    "JavaScript"
+  ],
   "author": "Luiz Wendel",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Luiz-Wendel/js-expert/issues"
   },
-  "homepage": "https://github.com/Luiz-Wendel/js-expert#readme"
+  "homepage": "https://github.com/Luiz-Wendel/js-expert#readme",
+  "devDependencies": {
+    "sinon": "^9.2.4"
+  }
 }

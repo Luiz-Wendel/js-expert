@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "Luiz Wendel",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^8.4.0",
+    "supertest": "^6.2.4"
+  }
 }

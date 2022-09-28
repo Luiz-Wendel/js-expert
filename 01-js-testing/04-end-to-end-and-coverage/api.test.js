@@ -34,5 +34,15 @@ describe('API Suite test', () => {
 
       assert.deepStrictEqual(response.text, 'Login has succeeded!');
     });
+
+    it('should unauthorize when requesting using wrong credentials and return HTTP Status 401', async() => {
+      const response = await request(app)
+        .post('/login')
+        .send({ username: 'OtherUser', password: 'somePassword' })
+        .expect(401);
+
+      assert.ok(response.unauthorized);
+      assert.deepStrictEqual(response.text, 'Login failed!');
+    });
   });
 });

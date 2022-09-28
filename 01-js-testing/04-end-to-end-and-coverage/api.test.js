@@ -14,4 +14,14 @@ describe('API Suite test', () => {
       assert.deepStrictEqual(response.text, 'contact us page');
     });
   });
+
+  describe('/hello', () => {
+    it('should request an inexistent route /hi and redirect to /hello', async() => {
+      const response = await request(app)
+        .get('/hi')
+        .expect(200);
+
+      assert.deepStrictEqual(response.text, 'Hello World!');
+    });
+  });
 });

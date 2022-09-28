@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "Luiz Wendel",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "faker": "^5.1.0"
+  }
 }

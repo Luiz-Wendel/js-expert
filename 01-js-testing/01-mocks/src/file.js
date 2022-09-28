@@ -25,7 +25,7 @@ class File {
   }
 
   static isValid(csvString, options = DEFAULT_OPTIONS) {
-    const [header, ..._lines] = csvString.split('\n')
+    const [header, ...lines] = csvString.split('\n')
 
     const isHeaderValid = header === options.fields.join(',')
     if (!isHeaderValid) {
@@ -34,11 +34,15 @@ class File {
         error: error.FILE_FIELDS_ERROR_MESSAGE,
       }
     }
+
+    const isLengthValid = lines.length > 0 && lines.length <= options.maxLines
+    if (!isLengthValid) {
+      return {
+        valid: false,
+        error: error.FILE_LENGTH_ERROR_MESSAGE,
+      }
+    }
+
+    return { valid: true }
   }
 }
-
-(async () => {
-  const result = await File.csvToJson('./../mocks/header-invalid.csv')
-
-  console.log(result);
-})()

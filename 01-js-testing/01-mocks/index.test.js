@@ -19,6 +19,13 @@ const { error } = require('./src/constants');
     await rejects(result, rejection);
   }
   {
+    const filePath = './mocks/header-invalid.csv';
+    const rejection = new Error(error.FILE_FIELDS_ERROR_MESSAGE);
+    const result = File.csvToJson(filePath);
+
+    await rejects(result, rejection);
+  }
+  {
     Date.prototype.getFullYear = () => 2020;
 
     const filePath = './mocks/threeItems-valid.csv';

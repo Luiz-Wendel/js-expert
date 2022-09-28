@@ -1,6 +1,11 @@
 const http = require('http');
 
 const handler = function (request, response) {
+  const { url, method } = request;
+  const routeKey = `${url}:${method.toLowerCase()}`;
+
+  console.log(routeKey);
+
   return response.end('Hello World!');
 }
 

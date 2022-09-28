@@ -46,3 +46,5 @@ class File {
     return { valid: true }
   }
 }
+
+module.exports = File

@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["JS", "JavaScript"],
+  "keywords": [
+    "JS",
+    "JavaScript"
+  ],
   "author": "Luiz Wendel",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sinon": "^9.2.4"
+  }
 }

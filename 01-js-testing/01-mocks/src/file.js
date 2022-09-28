@@ -1,5 +1,7 @@
 const { readFile } = require('fs/promises');
+
 const { error } = require('./constants');
+const User = require('./user');
 
 const DEFAULT_OPTIONS = {
   maxLines: 3,
@@ -17,7 +19,7 @@ class File {
     const users = this.parseCSVToJSON(content);
 
     return users;
-  };
+  }
 
   static async getFileContent(filePath) {
     return (await readFile(filePath)).toString('utf8');
@@ -59,7 +61,7 @@ class File {
         user[header[index]] = items[index];
       }
 
-      return user;
+      return new User(user);
     });
 
     return users;

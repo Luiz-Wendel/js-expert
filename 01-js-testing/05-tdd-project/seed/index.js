@@ -6,9 +6,11 @@ const { writeFile } = require('fs/promises');
 const faker = require('faker');
 
 // local
+const Car = require('./../src/entities/car');
 const CarCategory = require('./../src/entities/carCategory');
 
 const databaseBaseFolder = join(__dirname, '../', 'database');
+const ITEMS_AMOUT = 2;
 
 const carCategory = new CarCategory({
   id: faker.random.uuid(),
@@ -17,6 +19,20 @@ const carCategory = new CarCategory({
   price: faker.finance.amount(20, 100),
 });
 
+const cars = [];
+for (let index = 0; index <= ITEMS_AMOUT; index += 1) {
+  const car = new Car({
+    id: faker.random.uuid(),
+    name: faker.vehicle.model(),
+    available: true,
+    gasAvailable: true,
+    releaseYear: faker.date.past().getFullYear(),
+  });
+
+  carCategory.carIds.push(car.id);
+  cars.push(car);
+}
+
 const write = (filename, data) => writeFile(
   join(databaseBaseFolder, filename),
   JSON.stringify(data),
@@ -24,4 +40,5 @@ const write = (filename, data) => writeFile(
 
 (async () => {
   await write('carCategories.json', [carCategory]);
+  await write('cars.json', cars);
 })();

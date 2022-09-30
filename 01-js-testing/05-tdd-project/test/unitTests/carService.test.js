@@ -1,4 +1,5 @@
 const { join } = require('path');
+const assert = require('assert');
 
 const { describe, it, before } = require('mocha');
 
@@ -16,8 +17,9 @@ describe('CarService Suite Tests', () => {
   });
 
   it('should return an available car given a carCategory', async () => {
-    const result = await carService.test();
+    const result = await carService.getAvailableCar();
+    const expected = {};
 
-    console.log('result', result);
+    assert.deepStrictEqual(result, expected);
   });
 });

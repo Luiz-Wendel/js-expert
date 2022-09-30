@@ -22,6 +22,13 @@ describe('CarService Suite Tests', () => {
     });
   });
 
+  it('should retrieve a random position from an array', () => {
+    const data = [0, 1, 2, 3, 4];
+    const result  = carService.getRandomPositionFromArray(data);
+
+    expect(result).to.be.lessThanOrEqual(data.length).and.be.greaterThanOrEqual(0);
+  });
+
   it('should return an available car given a carCategory', async () => {
     const car = mocks.validCar;
     const carCategory = Object.create(mocks.validCarCategory);

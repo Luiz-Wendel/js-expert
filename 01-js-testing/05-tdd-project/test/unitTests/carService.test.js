@@ -29,14 +29,24 @@ describe('CarService Suite Tests', () => {
     expect(result).to.be.lessThanOrEqual(data.length).and.be.greaterThanOrEqual(0);
   });
 
-  it('should return an available car given a carCategory', async () => {
-    const car = mocks.validCar;
-    const carCategory = Object.create(mocks.validCarCategory);
-    carCategory.ids = [car.id];
+  it('should get the first id from carIds in carCategory', () => {
+    const carCategory = mocks.validCarCategory;
+    const carIdIndex = 0;
 
-    const result = await carService.getAvailableCar();
-    const expected = car;
+    const result = carService.getRandomCar(carCategory);
+    const expected = carCategory.carIds[carIdIndex];
 
-    expect(result).to.be.deep.equal(expected);
+    expect(result).to.be.equal(expected);
   });
+
+  // it('should return an available car given a carCategory', async () => {
+  //   const car = mocks.validCar;
+  //   const carCategory = Object.create(mocks.validCarCategory);
+  //   carCategory.ids = [car.id];
+
+  //   const result = await carService.getAvailableCar();
+  //   const expected = car;
+
+  //   expect(result).to.be.deep.equal(expected);
+  // });
 });

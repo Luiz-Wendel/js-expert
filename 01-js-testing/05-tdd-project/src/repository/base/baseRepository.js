@@ -1,3 +1,5 @@
+const { readFile } = require('fs/promises');
+
 class BaseRepository {
   constructor({ file }) {
     this.file = file;

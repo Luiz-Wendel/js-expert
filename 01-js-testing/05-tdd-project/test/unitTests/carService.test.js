@@ -59,9 +59,21 @@ describe('CarService Suite Tests', () => {
     const carCategory = Object.create(mocks.validCarCategory);
     carCategory.carIds = [car.id];
 
-    const result = await carService.getAvailableCar();
+    sandbox.stub(
+      carService.carRepository,
+      carService.carRepository.find.name,
+    ).resolves(car);
+
+    sandbox.spy(
+      carService,
+      carService.getRandomCar.name,
+    )
+
+    const result = await carService.getAvailableCar(carCategory);
     const expected = car;
 
+    expect(carService.getRandomCar.calledOnce).to.be.true;
+    expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.true;
     expect(result).to.be.deep.equal(expected);
   });
 });

@@ -54,14 +54,14 @@ describe('CarService Suite Tests', () => {
     expect(result).to.be.equal(expected);
   });
 
-  // it('should return an available car given a carCategory', async () => {
-  //   const car = mocks.validCar;
-  //   const carCategory = Object.create(mocks.validCarCategory);
-  //   carCategory.ids = [car.id];
+  it('should return an available car given a carCategory', async () => {
+    const car = mocks.validCar;
+    const carCategory = Object.create(mocks.validCarCategory);
+    carCategory.carIds = [car.id];
 
-  //   const result = await carService.getAvailableCar();
-  //   const expected = car;
+    const result = await carService.getAvailableCar();
+    const expected = car;
 
-  //   expect(result).to.be.deep.equal(expected);
-  // });
+    expect(result).to.be.deep.equal(expected);
+  });
 });

@@ -5,6 +5,8 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const CarService = require ('./../../src/service/carService');
+const Transaction = require ('./../../src/entities/transaction');
+
 const mocks = {
   validCarCategory: require('./../mocks/valid-carCategory.json'),
   validCar: require('./../mocks/valid-car.json'),
@@ -77,7 +79,7 @@ describe('CarService Suite Tests', () => {
     expect(result).to.be.deep.equal(expected);
   });
 
-  it('should calculate final amount in real given a carCategory, customer and numberOfDays', async () => {
+  it('should calculate final amount in real given a carCategory, customer and numberOfDays', () => {
     const customer = Object.create(mocks.validCustomer);
     customer.age = 50;
 
@@ -97,6 +99,42 @@ describe('CarService Suite Tests', () => {
 
     const result = carService.calculateFinalPrice(customer, carCategory, numberOfDays);
     const expected = carService.currencyFormat.format(244.40);
+
+    expect(result).to.be.deep.equal(expected);
+  });
+
+  it('should return a transaction receipt given a customer and a car category', async () => {
+    const car = mocks.validCar;
+
+    const carCategory = {
+      ...mocks.validCarCategory,
+      price: 37.6,
+      carIds: [car.id],
+    };
+
+    const customer = {
+      ...mocks.validCustomer,
+      age: 20,
+    };
+
+    const numberOfDays = 5;
+    const dueDate = '10 de novembro de 2020'
+
+    const now = new Date(2020, 10, 5);
+    sandbox.useFakeTimers(now.getTime());
+
+    // age: 20 - tax: 1.1 - categoryPrice: 37.6
+    // 37.6 * 1.1 = 42.36 * 5 = 206.8
+    
+    const expectedAmount = carService.currencyFormat.format(206.80);
+
+    const result = await carService.rent(customer, carCategory, numberOfDays);
+    const expected = new Transaction({
+      customer,
+      car,
+      dueDate,
+      amount: expectedAmount,
+    });
 
     expect(result).to.be.deep.equal(expected);
   });

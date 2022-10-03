@@ -1,5 +1,5 @@
 class Tax {
-  static get taxesBadesOnAge() {
+  static get taxesBasedOnAge() {
     return [
       { from: 18, to: 25, value: 1.1 },
       { from: 26, to: 30, value: 1.5 },

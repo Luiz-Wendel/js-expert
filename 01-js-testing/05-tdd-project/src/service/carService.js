@@ -1,4 +1,5 @@
-const BaseRepository = require("../repository/base/baseRepository");
+const BaseRepository = require("./../repository/base/baseRepository");
+const Tax = require('./../entities/tax');
 
 class CarService {
   constructor({ carsFile }) {
@@ -8,6 +9,8 @@ class CarService {
       style: 'currency',
       currency: 'BRL',
     });
+
+    this.taxesBasedOnAge = Tax.taxesBasedOnAge;
   }
 
   getRandomPositionFromArray(list) {
@@ -27,6 +30,17 @@ class CarService {
     const car = await this.carRepository.find(carId);
 
     return car;
+  }
+
+  calculateFinalPrice(customer, carCategory, numberOfDays) {
+    const { age } = customer;
+    const price = carCategory.price;
+    const { value: tax } = this.taxesBasedOnAge.find(tax => age >= tax.from && age <= tax.to);
+
+    const finalPrice = ((tax * price) * (numberOfDays));
+    const formattedPrice = this.currencyFormat.format(finalPrice);
+
+    return formattedPrice;
   }
 }
 

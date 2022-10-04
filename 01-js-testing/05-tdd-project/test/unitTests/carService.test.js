@@ -123,6 +123,11 @@ describe('CarService Suite Tests', () => {
     const now = new Date(2020, 10, 5);
     sandbox.useFakeTimers(now.getTime());
 
+    sandbox.stub(
+      carService.carRepository,
+      carService.carRepository.find.name,
+    ).resolves(car);
+
     // age: 20 - tax: 1.1 - categoryPrice: 37.6
     // 37.6 * 1.1 = 42.36 * 5 = 206.8
     

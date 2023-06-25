@@ -20,6 +20,13 @@ class File {
   }
 
   static isValid(csvString, option = DEFAULT_OPTIONS) {
+    if (!csvString) {
+      return {
+        error: errors.messages.FILE_LENGTH_ERROR,
+        valid: false,
+      };
+    }
+
     const [header, ...content] = csvString.split(/\r?\n/);
 
     const isHeaderValid = header === option.fields.join(',');
@@ -33,7 +40,7 @@ class File {
 
     if (!content.length || content.length > option.maxLines) {
       return {
-        error: errors.messages.FILE_LENGTH_ERROR,
+        error: errors.messages.FILE_CONTENT_LENGTH_ERROR,
         valid: false,
       };
     }

@@ -6,8 +6,12 @@ const File = require('./src/file');
 (async () => {
   const invalidTestCases = [
     {
-      filePath: './mocks/invalid-emptyContent.csv',
+      filePath: './mocks/invalid-emptyFile.csv',
       expected: new Error(errors.messages.FILE_LENGTH_ERROR),
+    },
+    {
+      filePath: './mocks/invalid-emptyContent.csv',
+      expected: new Error(errors.messages.FILE_CONTENT_LENGTH_ERROR),
     },
     {
       filePath: './mocks/invalid-header.csv',
@@ -15,7 +19,7 @@ const File = require('./src/file');
     },
     {
       filePath: './mocks/invalid-fiveItems.csv',
-      expected: new Error(errors.messages.FILE_LENGTH_ERROR),
+      expected: new Error(errors.messages.FILE_CONTENT_LENGTH_ERROR),
     },
   ];
 

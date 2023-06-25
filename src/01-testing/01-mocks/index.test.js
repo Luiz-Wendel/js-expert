@@ -21,6 +21,10 @@ const File = require('./src/file');
       filePath: './mocks/invalid-fiveItems.csv',
       expected: new Error(errors.messages.FILE_CONTENT_LENGTH_ERROR),
     },
+    {
+      filePath: './mocks/invalid-contentSize.csv',
+      expected: new Error(errors.messages.FILE_CONTENT_SIZE_ERROR),
+    },
   ];
 
   invalidTestCases.forEach(async (testCase) => {

@@ -27,7 +27,7 @@ class File {
       };
     }
 
-    if (!content.length) {
+    if (!content.length || content.length > option.maxLines) {
       return {
         error: errors.messages.FILE_LENGTH_ERROR,
         valid: false,

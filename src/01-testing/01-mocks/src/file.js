@@ -45,6 +45,17 @@ class File {
       };
     }
 
+    const isContentValid = content.every((line) => (
+      line.split(',').length === option.fields.length
+    ));
+
+    if (!isContentValid) {
+      return {
+        error: errors.messages.FILE_CONTENT_SIZE_ERROR,
+        valid: false,
+      };
+    }
+
     return { valid: true };
   }
 

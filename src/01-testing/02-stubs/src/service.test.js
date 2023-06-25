@@ -39,6 +39,14 @@ const PLANETS = ['tatooine', 'alderaan'];
         },
         url: URLS.tatooine,
       },
+      {
+        expected: {
+          name: 'Alderaan',
+          surfaceWater: '40',
+          appearedIn: 2,
+        },
+        url: URLS.alderaan,
+      },
     ];
 
     testCases.forEach(async ({ expected, url }) => {

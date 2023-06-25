@@ -1,6 +1,11 @@
 const { readFile } = require('fs/promises');
 const { errors } = require('./constants');
 
+const DEFAULT_OPTIONS = {
+  maxLines: 3,
+  fields: ['id', 'name', 'profession', 'age'],
+};
+
 class File {
   static async csvToJson(filePath) {
     const content = await readFile(filePath, { encoding: 'utf-8' });
@@ -10,8 +15,8 @@ class File {
     if (!validation.valid) throw new Error(validation.error);
   }
 
-  static isValid(csvString) {
-    const [, ...content] = csvString.split(/\r?\n/);
+  static isValid(csvString, option = DEFAULT_OPTIONS) {
+    const [header, ...content] = csvString.split(/\r?\n/);
 
     if (!content.length) {
       return {

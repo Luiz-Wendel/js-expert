@@ -13,6 +13,10 @@ class File {
     const validation = this.isValid(content);
 
     if (!validation.valid) throw new Error(validation.error);
+
+    const result = this.parseCSVToJSON(content);
+
+    return result;
   }
 
   static isValid(csvString, option = DEFAULT_OPTIONS) {
@@ -34,7 +38,27 @@ class File {
       };
     }
 
-    return false;
+    return { valid: true };
+  }
+
+  static parseCSVToJSON(csvString) {
+    const lines = csvString.split(/\r?\n/);
+
+    const header = lines.shift().split(',');
+
+    const users = lines.map((line) => {
+      const columns = line.split(',');
+
+      const user = {};
+
+      columns.forEach((column, index) => {
+        user[header[index]] = column;
+      });
+
+      return user;
+    });
+
+    return users;
   }
 }
 

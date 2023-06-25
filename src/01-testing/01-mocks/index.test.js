@@ -6,7 +6,7 @@ const File = require('./src/file');
 (async () => {
   const rejectTestCases = [
     {
-      filePath: './mocks/invalid-emptyFile.csv',
+      filePath: './mocks/invalid-emptyContent.csv',
       expected: new Error(errors.messages.FILE_LENGTH_ERROR),
     },
     {

@@ -18,6 +18,15 @@ class File {
   static isValid(csvString, option = DEFAULT_OPTIONS) {
     const [header, ...content] = csvString.split(/\r?\n/);
 
+    const isHeaderValid = header === option.fields.join(',');
+
+    if (!isHeaderValid) {
+      return {
+        error: errors.messages.FILE_FIELDS_ERROR,
+        valid: false,
+      };
+    }
+
     if (!content.length) {
       return {
         error: errors.messages.FILE_LENGTH_ERROR,

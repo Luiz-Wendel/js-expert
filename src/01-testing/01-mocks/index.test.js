@@ -13,6 +13,10 @@ const File = require('./src/file');
       filePath: './mocks/invalid-header.csv',
       expected: new Error(errors.messages.FILE_FIELDS_ERROR),
     },
+    {
+      filePath: './mocks/invalid-fiveItems.csv',
+      expected: new Error(errors.messages.FILE_LENGTH_ERROR),
+    },
   ];
 
   rejectTestCases.forEach(async (testCase) => {

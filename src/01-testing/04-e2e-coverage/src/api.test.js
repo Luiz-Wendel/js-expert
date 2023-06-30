@@ -31,4 +31,18 @@ describe('API suite test', () => {
       assert.strictEqual(response.text, 'contact us page');
     });
   });
+
+  describe('/login', () => {
+    it('should login successfully on the system', async () => {
+      const response = await supertest(app)
+        .post('/login')
+        .send({
+          username: 'Test',
+          password: '123456',
+        })
+        .expect(200);
+
+      assert.strictEqual(response.text, 'ok');
+    });
+  });
 });

@@ -1,10 +1,34 @@
 const http = require('http');
+const { once } = require('events');
+
+// constants
+const DEFAULT_USER = {
+  username: 'Test',
+  password: '123456',
+};
+
+const toLower = (text) => text.toLowerCase();
 
 const routes = {
   'get:/contact': (_req, res) => {
     res.write('contact us page');
 
     return res.end();
+  },
+  // curl -i -X POST --data '{"username": "test", "password": "123456"}' localhost:3000/login
+  'post:/login': async (req, res) => {
+    const data = JSON.parse(await once(req, 'data'));
+
+    if (
+      toLower(data.username) !== toLower(DEFAULT_USER.username)
+      || data.password !== DEFAULT_USER.password
+    ) {
+      res.writeHead(401);
+
+      return res.end('invalid credentials');
+    }
+
+    return res.end('ok');
   },
   default(_req, res) {
     res.writeHead(404);

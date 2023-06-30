@@ -44,5 +44,29 @@ describe('API suite test', () => {
 
       assert.strictEqual(response.text, 'ok');
     });
+
+    it('should fail to login on the system with invalid password', async () => {
+      const response = await supertest(app)
+        .post('/login')
+        .send({
+          username: 'Test',
+          password: '123',
+        })
+        .expect(401);
+
+      assert.strictEqual(response.text, 'invalid credentials');
+    });
+
+    it('should fail to login on the system with invalid username', async () => {
+      const response = await supertest(app)
+        .post('/login')
+        .send({
+          username: 'testing',
+          password: '123456',
+        })
+        .expect(401);
+
+      assert.strictEqual(response.text, 'invalid credentials');
+    });
   });
 });

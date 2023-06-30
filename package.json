@@ -20,5 +20,8 @@
     "nyc": "^15.1.0",
     "sinon": "^15.0.1",
     "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "faker": "^5.1.0"
   }
 }

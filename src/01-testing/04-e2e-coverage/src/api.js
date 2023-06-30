@@ -47,5 +47,7 @@ function handler(req, res) {
   return chosen(req, res);
 }
 
-http.createServer(handler)
+const app = http.createServer(handler)
   .listen(3000, () => console.log('Server running on port 3000'));
+
+module.exports = app;

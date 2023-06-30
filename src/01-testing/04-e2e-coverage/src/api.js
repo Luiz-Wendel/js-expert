@@ -19,6 +19,12 @@ const routes = {
   'post:/login': async (req, res) => {
     const data = JSON.parse(await once(req, 'data'));
 
+    if (!data.username || !data.password) {
+      res.writeHead(400);
+
+      return res.end('invalid data');
+    }
+
     if (
       toLower(data.username) !== toLower(DEFAULT_USER.username)
       || data.password !== DEFAULT_USER.password

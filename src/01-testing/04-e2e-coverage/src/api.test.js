@@ -112,4 +112,14 @@ describe('API suite test', () => {
       assert.strictEqual(response.text, 'invalid data');
     });
   });
+
+  describe('default route', () => {
+    it('should return page not found', async () => {
+      const response = await supertest(app)
+        .get('/testing')
+        .expect(404);
+
+      assert.strictEqual(response.text, 'page not found');
+    });
+  });
 });

@@ -84,4 +84,27 @@ describe('CarService Suite Tests', () => {
     expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.ok;
     expect(result).to.be.deep.equal(expected);
   });
+
+  it('should calculate the final amount in real given a car category, customer and number of days', async () => {
+    const customer = {
+      ...mocks.validCustomer,
+      age: 50,
+    };
+    const carCategory = {
+      ...mocks.validCarCategory,
+      price: 37.6,
+      carIds: [mocks.validCar.id],
+    };
+    const numberOfDays = 5;
+
+    sandbox.stub(
+      carService,
+      'taxesBasedOnAge',
+    ).get(() => [{ from: 31, to: 100, then: 1.3 }]);
+
+    const expected = carService.currencyFormat.format(244.4);
+    const result = await carService.getFinalPrice(customer, carCategory, numberOfDays);
+
+    expect(result).to.be.deep.equal(expected);
+  });
 });

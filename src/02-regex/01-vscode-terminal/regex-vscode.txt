@@ -1,0 +1,55 @@
+// regex.com
+
+// CPF pattern
+^\d{3}.\d{3}.\d{3}-\d{2}$
+
+123.123.123-12
+321.123.345-23
+100.200.300-40
+
+// replace: [.-] => vazio
+// result:
+
+12312312312
+32112334523
+10020030040
+
+
+
+// CSV => last name, first name
+^(\w+),\s(\w+)$
+
+Wendel, Erick
+Doe, Jhon
+Doe, Jane
+
+// replace: ^(\w+),\s(\w+)$ => { "firstName": "$2", "lastName": "$1" }
+// result:
+
+{ "firstName": "Erick", "lastName": "Wendel" }
+{ "firstName": "Jhon", "lastName": "Doe" }
+{ "firstName": "Jane", "lastName": "Doe" }
+
+
+
+// Markdown links
+\[(.*?)\]\(([http|https].*?)\)
+
+"""
+O [Erick Wendel](https://erickwendel.com) faz palestras e você devia segui-lo lá no [Twitter](http://twitter.com/erickwendel_) ou até no [Instagram](https://instagram.com/erickwendel_).
+
+Ah e pode pesquisar no [Google](https://google.com) ou [Yahoo](https://yahoo.com).
+
+Vai que vai!
+"""
+
+// replace: \[(.*?)\]\(([http|https].*?)\) => <a href="$2">$1</a>
+// result:
+
+"""
+O <a href="https://erickwendel.com">Erick Wendel</a> faz palestras e você devia segui-lo lá no <a href="http://twitter.com/erickwendel_">Twitter</a> ou até no <a href="https://instagram.com/erickwendel_">Instagram</a>.
+
+Ah e pode pesquisar no <a href="https://google.com">Google</a> ou <a href="https://yahoo.com">Yahoo</a>.
+
+Vai que vai!
+"""

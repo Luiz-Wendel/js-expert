@@ -1,3 +1,6 @@
+# ignore local db files
+**/database/*.json
+
 # ignore pre-commit
 hooks/pre-commit
 .pre-commit-config.yaml

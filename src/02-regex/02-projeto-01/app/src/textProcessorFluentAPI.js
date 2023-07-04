@@ -1,3 +1,5 @@
+const { evaluateRegex } = require('./utils');
+
 class TextProcessorFluentAPI {
   // private property
   #content;
@@ -20,12 +22,20 @@ class TextProcessorFluentAPI {
 
     // gmi -> global, multiline, case insensitive
 
-    const matchPerson = /(?<=[contratante|contratada]:\s{1})(?!\s)(.*\n.*?)$/gmi;
+    const matchPerson = evaluateRegex(/(?<=[contratante|contratada]:\s{1})(?!\s)(.*\n.*?)$/gmi);
 
     // match -> return an array with the matches
     const onlyPerson = this.#content.match(matchPerson);
 
     this.#content = onlyPerson;
+
+    return this;
+  }
+
+  divideTextInColumns() {
+    const splitRegex = evaluateRegex(/,/);
+
+    this.#content = this.#content.map((line) => line.split(splitRegex));
 
     return this;
   }

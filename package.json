@@ -23,6 +23,7 @@
     "supertest": "^6.3.3"
   },
   "dependencies": {
-    "faker": "^5.1.0"
+    "faker": "^5.1.0",
+    "pdf-parse": "^1.1.1"
   }
 }

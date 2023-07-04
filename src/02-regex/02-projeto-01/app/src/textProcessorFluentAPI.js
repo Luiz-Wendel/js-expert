@@ -40,6 +40,14 @@ class TextProcessorFluentAPI {
     return this;
   }
 
+  trimContent() {
+    const trimRegex = evaluateRegex(/^\s+|\s+$|\n/g);
+
+    this.#content = this.#content.map((line) => line.map((item) => item.replace(trimRegex, '')));
+
+    return this;
+  }
+
   build() {
     return this.#content;
   }

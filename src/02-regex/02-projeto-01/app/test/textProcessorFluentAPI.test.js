@@ -62,4 +62,38 @@ describe('TextProcessorFluentAPI', () => {
 
     expect(result).to.be.deep.equal(expected);
   });
+
+  it('#trimContent', () => {
+    const content = [
+      [
+        'Xuxa da Silva',
+        ' brasileira',
+        ' casada',
+        ' CPF 235.743.420-12',
+        ' residente e \ndomiciliada a Rua dos bobos',
+        ' zero',
+        ' bairro Alphaville',
+        ' São Paulo. ',
+      ],
+    ];
+
+    const result = new TextProcessorFluentAPI(content)
+      .trimContent()
+      .build();
+
+    const expected = [
+      [
+        'Xuxa da Silva',
+        'brasileira',
+        'casada',
+        'CPF 235.743.420-12',
+        'residente e domiciliada a Rua dos bobos',
+        'zero',
+        'bairro Alphaville',
+        'São Paulo.',
+      ],
+    ];
+
+    expect(result).to.be.deep.equal(expected);
+  });
 });

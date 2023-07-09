@@ -1,4 +1,8 @@
+// utils
 const { evaluateRegex } = require('./utils');
+
+// entities
+const Person = require('./person');
 
 class TextProcessorFluentAPI {
   // private property
@@ -44,6 +48,12 @@ class TextProcessorFluentAPI {
     const trimRegex = evaluateRegex(/^\s+|\s+$|\n/g);
 
     this.#content = this.#content.map((line) => line.map((item) => item.replace(trimRegex, '')));
+
+    return this;
+  }
+
+  mapPerson() {
+    this.#content = this.#content.map((line) => new Person(line));
 
     return this;
   }

@@ -12,11 +12,13 @@ const mocks = {
 };
 
 describe('TextProcessorFluentAPI', () => {
-  it('#build', () => {
-    const result = new TextProcessorFluentAPI(mocks.valid)
-      .build();
+  describe('#build', () => {
+    it('should return the content', () => {
+      const result = new TextProcessorFluentAPI(mocks.valid)
+        .build();
 
-    expect(result).to.be.equal(mocks.valid);
+      expect(result).to.be.equal(mocks.valid);
+    });
   });
 
   describe('#extractPeopleData', () => {
@@ -150,36 +152,54 @@ describe('TextProcessorFluentAPI', () => {
     });
   });
 
-  it('#mapPerson', () => {
-    const content = [
-      [
-        'Xuxa da Silva',
-        'brasileira',
-        'casada',
-        'CPF 235.743.420-12',
-        'residente e domiciliada a Rua dos bobos',
-        'zero',
-        'bairro Alphaville',
-        'São Paulo.',
-      ],
-    ];
+  describe('#mapPerson', () => {
+    it('should correctly map the person', () => {
+      const content = [
+        [
+          'Xuxa da Silva',
+          'brasileira',
+          'casada',
+          'CPF 235.743.420-12',
+          'residente e domiciliada a Rua dos bobos',
+          'zero',
+          'bairro Alphaville',
+          'São Paulo.',
+        ],
+      ];
 
-    const result = new TextProcessorFluentAPI(content)
-      .mapPerson()
-      .build();
-    const expected = [
-      {
-        name: 'Xuxa da Silva',
-        nacionality: 'Brasileira',
-        maritalStatus: 'Casada',
-        document: '23574342012',
-        street: 'Rua dos bobos',
-        number: 'zero',
-        neighborhood: 'Alphaville',
-        state: 'São Paulo',
-      },
-    ];
+      const result = new TextProcessorFluentAPI(content)
+        .mapPerson()
+        .build();
+      const expected = [
+        {
+          name: 'Xuxa da Silva',
+          nacionality: 'Brasileira',
+          maritalStatus: 'Casada',
+          document: '23574342012',
+          street: 'Rua dos bobos',
+          number: 'zero',
+          neighborhood: 'Alphaville',
+          state: 'São Paulo',
+        },
+      ];
 
-    expect(result).to.be.deep.equal(expected);
+      expect(result).to.be.deep.equal(expected);
+    });
+
+    it('should throw an error if the content is not an array', () => {
+      const invalidContentTypes = [
+        mocks.valid,
+        123,
+        { mock: mocks.valid },
+      ];
+
+      invalidContentTypes.forEach((invalidContent) => {
+        expect(
+          () => new TextProcessorFluentAPI(invalidContent)
+            .mapPerson()
+            .build(),
+        ).to.throw('The content should be an array');
+      });
+    });
   });
 });

@@ -8,6 +8,7 @@ const TextProcessorFluentAPI = require('../src/textProcessorFluentAPI');
 const mocks = {
   valid: require('./mock/valid'),
   invalidEmptyContent: require('./mock/invalid-emptyContent'),
+  invalidContent: require('./mock/invalid-content'),
 };
 
 describe('TextProcessorFluentAPI', () => {
@@ -48,6 +49,14 @@ describe('TextProcessorFluentAPI', () => {
           .extractPeopleData()
           .build(),
       ).to.throw('The content cannot be empty');
+    });
+
+    it('should throw an error when there is no match', () => {
+      expect(
+        () => new TextProcessorFluentAPI(mocks.invalidContent)
+          .extractPeopleData()
+          .build(),
+      ).to.throw('Could not find a person with the pattern');
     });
   });
 

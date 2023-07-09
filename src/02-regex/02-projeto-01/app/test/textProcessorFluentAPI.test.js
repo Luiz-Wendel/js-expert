@@ -201,5 +201,42 @@ describe('TextProcessorFluentAPI', () => {
         ).to.throw('The content should be an array');
       });
     });
+
+    it('should throw an error if the content is not valid', () => {
+      const invalidContentTypes = [
+        [mocks.valid],
+        [[{ mock: mocks.valid }]],
+        [[123]],
+        [[
+          'Xuxa da Silva',
+          'brasileira',
+          'casada',
+          'CPF 235.743.420-12',
+          'residente e domiciliada em Rua dos bobos',
+          'zero',
+          'bairro Alphaville',
+          'São Paulo.',
+        ]],
+        [[
+          'Xuxa da Silva',
+          'brasileira',
+          'casada',
+          'CPF 235.743.420-12',
+          'residente e domiciliada a Rua dos bobos',
+          'zero',
+          'Alphaville',
+          'São Paulo.',
+        ]],
+        [[]],
+      ];
+
+      invalidContentTypes.forEach((invalidContent) => {
+        expect(
+          () => new TextProcessorFluentAPI(invalidContent)
+            .mapPerson()
+            .build(),
+        ).to.throw('The content is not valid');
+      });
+    });
   });
 });

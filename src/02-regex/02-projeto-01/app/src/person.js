@@ -6,6 +6,10 @@ class Person {
       throw new Error('Content must be an array');
     }
 
+    if (content.length !== 8) {
+      throw new Error('Content must contain all informations');
+    }
+
     const [
       name,
       nacionality,

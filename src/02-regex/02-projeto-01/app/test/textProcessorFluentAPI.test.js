@@ -97,38 +97,54 @@ describe('TextProcessorFluentAPI', () => {
     });
   });
 
-  it('#trimContent', () => {
-    const content = [
-      [
-        'Xuxa da Silva',
-        ' brasileira',
-        ' casada',
-        ' CPF 235.743.420-12',
-        ' residente e \ndomiciliada a Rua dos bobos',
-        ' zero',
-        ' bairro Alphaville',
-        ' São Paulo. ',
-      ],
-    ];
+  describe('#trimContent', () => {
+    it('should correctly trim the content', () => {
+      const content = [
+        [
+          'Xuxa da Silva',
+          ' brasileira',
+          ' casada',
+          ' CPF 235.743.420-12',
+          ' residente e \ndomiciliada a Rua dos bobos',
+          ' zero',
+          ' bairro Alphaville',
+          ' São Paulo. ',
+        ],
+      ];
 
-    const result = new TextProcessorFluentAPI(content)
-      .trimContent()
-      .build();
+      const result = new TextProcessorFluentAPI(content)
+        .trimContent()
+        .build();
 
-    const expected = [
-      [
-        'Xuxa da Silva',
-        'brasileira',
-        'casada',
-        'CPF 235.743.420-12',
-        'residente e domiciliada a Rua dos bobos',
-        'zero',
-        'bairro Alphaville',
-        'São Paulo.',
-      ],
-    ];
+      const expected = [
+        [
+          'Xuxa da Silva',
+          'brasileira',
+          'casada',
+          'CPF 235.743.420-12',
+          'residente e domiciliada a Rua dos bobos',
+          'zero',
+          'bairro Alphaville',
+          'São Paulo.',
+        ],
+      ];
 
-    expect(result).to.be.deep.equal(expected);
+      expect(result).to.be.deep.equal(expected);
+    });
+
+    it('should throw an error when the content is not an array of arrays', () => {
+      expect(
+        () => new TextProcessorFluentAPI(mocks.valid)
+          .trimContent()
+          .build(),
+      ).to.throw('The content should be an array of arrays');
+
+      expect(
+        () => new TextProcessorFluentAPI([mocks.valid])
+          .trimContent()
+          .build(),
+      ).to.throw('The content should be an array of arrays');
+    });
   });
 
   it('#mapPerson', () => {

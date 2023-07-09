@@ -34,6 +34,12 @@ class Person {
       throw new Error('Invalid street');
     }
 
+    try {
+      evaluateRegex(/(?<=\s).*$/).exec(neighborhood).join('');
+    } catch (err) {
+      throw new Error('Invalid neighborhood');
+    }
+
     this.name = name;
     this.nacionality = formatFirstLetter(nacionality);
     this.maritalStatus = formatFirstLetter(maritalStatus);

@@ -36,4 +36,10 @@ describe('Person', () => {
 
     expect(() => new Person(content)).to.throw('Content must be an array');
   });
+
+  it('should throw an error if the content does not contain all informations', () => {
+    const content = [];
+
+    expect(() => new Person(content)).to.throw('Content must contain all informations');
+  });
 });

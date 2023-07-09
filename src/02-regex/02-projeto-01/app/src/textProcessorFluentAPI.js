@@ -51,6 +51,11 @@ class TextProcessorFluentAPI {
   }
 
   trimContent() {
+    if (
+      !Array.isArray(this.#content)
+      || !this.#content.every((line) => Array.isArray(line))
+    ) throw new Error('The content should be an array of arrays');
+
     const trimRegex = evaluateRegex(/^\s+|\s+$|\n/g);
 
     this.#content = this.#content.map((line) => line.map((item) => item.replace(trimRegex, '')));

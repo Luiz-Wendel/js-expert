@@ -57,4 +57,19 @@ describe('Person', () => {
 
     expect(() => new Person(content)).to.throw('Invalid street');
   });
+
+  it('should throw an error if has an invalid neighborhood', () => {
+    const content = [
+      'Xuxa da Silva',
+      'brasileira',
+      'casada',
+      'CPF 235.743.420-12',
+      'residente e domiciliada a Rua dos bobos',
+      'zero',
+      'Alphaville',
+      'São Paulo.',
+    ];
+
+    expect(() => new Person(content)).to.throw('Invalid neighborhood');
+  });
 });

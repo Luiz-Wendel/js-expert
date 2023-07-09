@@ -1,16 +1,22 @@
 const { evaluateRegex } = require('./utils');
 
 class Person {
-  constructor([
-    name,
-    nacionality,
-    maritalStatus,
-    document,
-    street,
-    number,
-    neighborhood,
-    state,
-  ]) {
+  constructor(content) {
+    if (!Array.isArray(content)) {
+      throw new Error('Content must be an array');
+    }
+
+    const [
+      name,
+      nacionality,
+      maritalStatus,
+      document,
+      street,
+      number,
+      neighborhood,
+      state,
+    ] = content;
+
     const firstLetter = evaluateRegex(/^(\w{1})([a-zA-Z]+$)/g);
     const formatFirstLetter = (prop) => (
       prop.replace(firstLetter, (_match, p1, p2) => (

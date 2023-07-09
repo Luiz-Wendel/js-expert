@@ -41,6 +41,8 @@ class TextProcessorFluentAPI {
   }
 
   divideTextInColumns() {
+    if (!Array.isArray(this.#content)) throw new Error('The content should be an array');
+
     const splitRegex = evaluateRegex(/,/);
 
     this.#content = this.#content.map((line) => line.split(splitRegex));

@@ -1,39 +1,54 @@
+/* eslint-disable global-require */
+
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 
 const TextProcessorFluentAPI = require('../src/textProcessorFluentAPI');
 
-const mock = require('./mock/valid');
+const mocks = {
+  valid: require('./mock/valid'),
+  invalidEmptyContent: require('./mock/invalid-emptyContent'),
+};
 
 describe('TextProcessorFluentAPI', () => {
   it('#build', () => {
-    const result = new TextProcessorFluentAPI(mock)
+    const result = new TextProcessorFluentAPI(mocks.valid)
       .build();
 
-    expect(result).to.be.equal(mock);
+    expect(result).to.be.equal(mocks.valid);
   });
 
-  it('#extractPeopleData', () => {
-    const result = new TextProcessorFluentAPI(mock)
-      .extractPeopleData()
-      .build();
+  describe('#extractPeopleData', () => {
+    it('should correctly extract people data', () => {
+      const result = new TextProcessorFluentAPI(mocks.valid)
+        .extractPeopleData()
+        .build();
 
-    const expected = [
-      [
-        'Xuxa da Silva, brasileira, casada, CPF 235.743.420-12, residente e ',
-        'domiciliada a Rua dos bobos, zero, bairro Alphaville, São Paulo. ',
-      ].join('\n'),
-      [
-        'Arya Robbin, belga, casado, CPF 884.112.200-52, residente e ',
-        'domiciliada a Av. paulista, 1400, bairro Consolação, São Paulo. ',
-      ].join('\n'),
-      [
-        'Júlia Menezes, brasileira, solteira, CPF 297.947.800-81, residente e ',
-        'domiciliada a Av. dos Estados, 99, bairro Jardins, São Paulo. ',
-      ].join('\n'),
-    ];
+      const expected = [
+        [
+          'Xuxa da Silva, brasileira, casada, CPF 235.743.420-12, residente e ',
+          'domiciliada a Rua dos bobos, zero, bairro Alphaville, São Paulo. ',
+        ].join('\n'),
+        [
+          'Arya Robbin, belga, casado, CPF 884.112.200-52, residente e ',
+          'domiciliada a Av. paulista, 1400, bairro Consolação, São Paulo. ',
+        ].join('\n'),
+        [
+          'Júlia Menezes, brasileira, solteira, CPF 297.947.800-81, residente e ',
+          'domiciliada a Av. dos Estados, 99, bairro Jardins, São Paulo. ',
+        ].join('\n'),
+      ];
 
-    expect(result).to.be.deep.equal(expected);
+      expect(result).to.be.deep.equal(expected);
+    });
+
+    it('should throw an error when there is no content', () => {
+      expect(
+        () => new TextProcessorFluentAPI(mocks.invalidEmptyContent)
+          .extractPeopleData()
+          .build(),
+      ).to.throw('The content cannot be empty');
+    });
   });
 
   it('#divideTextInColumns', () => {

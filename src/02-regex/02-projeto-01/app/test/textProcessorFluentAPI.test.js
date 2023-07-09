@@ -132,18 +132,21 @@ describe('TextProcessorFluentAPI', () => {
       expect(result).to.be.deep.equal(expected);
     });
 
-    it('should throw an error when the content is not an array of arrays', () => {
-      expect(
-        () => new TextProcessorFluentAPI(mocks.valid)
-          .trimContent()
-          .build(),
-      ).to.throw('The content should be an array of arrays');
+    it('should throw an error when the content is not an array of arrays of strings', () => {
+      const invalidContentTypes = [
+        mocks.valid,
+        [mocks.valid],
+        [[{ mock: mocks.valid }]],
+        [[123]],
+      ];
 
-      expect(
-        () => new TextProcessorFluentAPI([mocks.valid])
-          .trimContent()
-          .build(),
-      ).to.throw('The content should be an array of arrays');
+      invalidContentTypes.forEach((invalidContent) => {
+        expect(
+          () => new TextProcessorFluentAPI(invalidContent)
+            .trimContent()
+            .build(),
+        ).to.throw('The content should be an array of arrays of strings');
+      });
     });
   });
 

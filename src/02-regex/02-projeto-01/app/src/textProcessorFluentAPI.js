@@ -54,7 +54,8 @@ class TextProcessorFluentAPI {
     if (
       !Array.isArray(this.#content)
       || !this.#content.every((line) => Array.isArray(line))
-    ) throw new Error('The content should be an array of arrays');
+      || !this.#content.every((line) => line.every((item) => typeof item === 'string'))
+    ) throw new Error('The content should be an array of arrays of strings');
 
     const trimRegex = evaluateRegex(/^\s+|\s+$|\n/g);
 

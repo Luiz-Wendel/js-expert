@@ -65,6 +65,8 @@ class TextProcessorFluentAPI {
   }
 
   mapPerson() {
+    if (!Array.isArray(this.#content)) throw new Error('The content should be an array');
+
     this.#content = this.#content.map((line) => new Person(line));
 
     return this;

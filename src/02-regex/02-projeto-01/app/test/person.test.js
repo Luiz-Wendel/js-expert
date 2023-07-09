@@ -30,4 +30,10 @@ describe('Person', () => {
 
     expect(result).to.be.deep.equal(expected);
   });
+
+  it('should throw an error if the content is not an array', () => {
+    const content = 'Xuxa da Silva';
+
+    expect(() => new Person(content)).to.throw('Content must be an array');
+  });
 });

@@ -33,6 +33,8 @@ class TextProcessorFluentAPI {
     // match -> return an array with the matches
     const onlyPerson = this.#content.match(matchPerson);
 
+    if (!onlyPerson) throw new Error('Could not find a person with the pattern');
+
     this.#content = onlyPerson;
 
     return this;

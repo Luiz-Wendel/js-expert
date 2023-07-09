@@ -67,7 +67,13 @@ class TextProcessorFluentAPI {
   mapPerson() {
     if (!Array.isArray(this.#content)) throw new Error('The content should be an array');
 
-    this.#content = this.#content.map((line) => new Person(line));
+    this.#content = this.#content.map((line) => {
+      try {
+        return new Person(line);
+      } catch (error) {
+        throw new Error(`The content is not valid (${error.message})`);
+      }
+    });
 
     return this;
   }

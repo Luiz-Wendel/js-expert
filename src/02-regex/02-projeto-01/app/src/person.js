@@ -28,6 +28,12 @@ class Person {
       ))
     );
 
+    try {
+      evaluateRegex(/(?<=\sa\s).*$/).exec(street).join('');
+    } catch (err) {
+      throw new Error('Invalid street');
+    }
+
     this.name = name;
     this.nacionality = formatFirstLetter(nacionality);
     this.maritalStatus = formatFirstLetter(maritalStatus);

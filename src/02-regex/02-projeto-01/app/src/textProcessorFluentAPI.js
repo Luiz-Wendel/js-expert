@@ -13,6 +13,8 @@ class TextProcessorFluentAPI {
   }
 
   extractPeopleData() {
+    if (!this.#content) throw new Error('The content cannot be empty');
+
     // ?<= -> lookbehind (extract everything that is after the pattern)
     // [contratante|contratada] -> find the words 'contratante' or 'contratada'
     // :\s{1} -> find the character ':' followed by a space

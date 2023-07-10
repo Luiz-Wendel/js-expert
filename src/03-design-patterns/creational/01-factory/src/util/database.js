@@ -1,9 +1,11 @@
+/* eslint-disable class-methods-use-this */
+
 class Database {
   constructor({ connectionString }) {
     this.connectionString = connectionString;
   }
 
-  static async sleep(ms) {
+  async sleep(ms) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });

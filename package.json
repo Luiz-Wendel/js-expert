@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "faker": "^5.1.0",
+    "http-server": "^14.1.1",
     "pdf-parse": "^1.1.1",
     "rewiremock": "^3.14.5",
     "safe-regex": "^2.1.1"

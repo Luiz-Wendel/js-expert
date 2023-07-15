@@ -3,13 +3,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import chalk from 'chalk';
+import chalkTable from 'chalk-table';
 
 import TableComponent from '../../shared/base/tableComponent.mjs';
 
 export default class TableConsoleComponent extends TableComponent {
   render(data) {
     const columns = this.prepareData(data);
-    console.log(columns);
+    const options = {
+      leftPad: 2,
+      columns,
+    };
+    const table = chalkTable(options, data);
+
+    console.log(table);
   }
 
   prepareData(data) {

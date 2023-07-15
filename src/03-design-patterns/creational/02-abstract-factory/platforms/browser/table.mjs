@@ -6,7 +6,7 @@ import TableComponent from '../../shared/base/tableComponent.mjs';
 export default class TableBrowserComponent extends TableComponent {
   render(data) {
     const template = this.prepareData(data);
-    console.log(template);
+    document.body.insertAdjacentHTML('afterBegin', template);
   }
 
   prepareData(data) {
